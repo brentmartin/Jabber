@@ -1,6 +1,9 @@
 package main
 
+import "net/http"
+
 // Initialize a variable that uses a websocket upgrader
+
 // Startup main goroutine
 func main() {
 	// websocket handler
