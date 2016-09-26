@@ -1,6 +1,10 @@
 package main
 
-import "net/http"
+import (
+	"net/http"
+
+	"github.com/gorilla/websocket"
+)
 
 // Initialize a variable that uses a websocket upgrader
 
