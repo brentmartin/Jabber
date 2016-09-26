@@ -26,8 +26,15 @@ func socketHandler(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 		return
 	}
-	// put in a reader for messages sent to server
 	// put in a writer for messages printed back from server
+
+	for {
+		// put in a reader for messages sent to server
+		message, p, err := conn.ReadMessage()
+		if err != nil {
+			return
+		}
+	}
 }
 
 // Create a handler for the html
