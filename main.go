@@ -7,6 +7,7 @@ import (
 )
 
 // Initialize a variable that uses a websocket upgrader
+var upgrader = websocket.Upgrader{}
 
 // Startup main goroutine
 func main() {
@@ -19,6 +20,11 @@ func main() {
 // Create handler for websocket
 func socketHandler(w http.ResponseWriter, r *http.Request) {
 	// upgrade the connection
+	conn, err := upgrader.Upgrade(w, r, nil)
+	if err != nil {
+		log.Println(err)
+		return
+	}
 	// put in a reader for messages sent to server
 	// put in a writer for messages printed back from server
 }
