@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/gorilla/websocket"
 )
@@ -33,6 +34,8 @@ func socketHandler(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			return
 		}
+
+		time.Sleep(time.Second * 1)
 		// put in a writer for messages printed back from server
 		err = conn.WriteMessage(message, p)
 		if err != nil {
