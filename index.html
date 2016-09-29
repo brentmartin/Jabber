@@ -1,0 +1,71 @@
+<html>
+<head>
+<meta charset="UTF-8" />
+<style type="text/css">
+
+        #content {
+          width: 400px;
+          height: 80%;
+          background-color: #e9e9e9;
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          margin: auto;
+          border-radius: 3px;
+        }
+
+        #server-message {
+          color: #2a2a2a;
+          background-color: white;
+          margin: 30px 20px 20px;
+          height: 80%;
+        }
+
+        #client-message {
+          height: 50px;
+          margin: 25px;
+        }
+
+        #client-message #sendtext {
+          float: left;
+          width: 300px;
+        }
+
+        #client-message #sendbutton {
+          float: right;
+        }
+
+        *:focus {
+          outline: none;
+        }
+
+</style>
+<script>
+
+        var socket = new WebSocket("ws://localhost:8080/socket");
+
+        socket.onmessage = function(e) {
+                document.getElementById("server-message").innerHTML += "Server: " + e.data + "<br>";
+        };
+
+        function senddata() {
+                var data = document.getElementById("sendtext").value;
+                socket.send(data);
+                document.getElementById("server-message").innerHTML += "You: " + data + "<br>";
+        }
+
+</script>
+</head>
+
+<body>
+  <div id="content">
+    <div id="server-message"></div>
+    <div id="client-message">
+      <input id="sendtext" type="text" />
+      <input id="sendbutton" type="button" value="send" onclick="senddata()"></input>
+    </div>
+  </div>
+</body>
+</html>
