@@ -16,6 +16,7 @@ func main() {
 	// websocket handler
 	http.HandleFunc("/socket", socketHandler)
 	// html handler
+	http.Handle("/", http.FileServer(http.Dir(".")))
 	// start server
 }
 
