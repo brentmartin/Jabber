@@ -46,6 +46,12 @@
 
         var socket = new WebSocket("ws://localhost:8080/socket");
 
+        function senddata() {
+                var data = document.getElementById("sendtext").value;
+                socket.send(data);
+                document.getElementById("server-message").innerHTML += "You: " + data + "<br>";
+        }
+
 </script>
 </head>
 
