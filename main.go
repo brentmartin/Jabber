@@ -18,6 +18,10 @@ func main() {
 	// html handler
 	http.Handle("/", http.FileServer(http.Dir(".")))
 	// start server
+	err := http.ListenAndServe(":8080", nil)
+	if err != nil {
+		panic("Error: " + err.Error())
+	}
 }
 
 // Create handler for websocket
