@@ -54,7 +54,6 @@ type Connection struct {
 	send chan []byte
 }
 
-//          build reader function for new Connections
 //          build writer function for new Connections
 //          run read and write as goroutines
 // TODO:  Update main func for hub and connections
@@ -101,10 +100,22 @@ func socketChat(hub *Hub, w http.ResponseWriter, r *http.Request) {
 
 	for {
 		// read messages from server
-		message, p, err := conn.ReadMessage()
-		if err != nil {
-			return
-		}
+    //          build reader function for new Connections
+    func (c *Connection) reader() {
+    	defer func() {
+    		c.hub.destroyConnection <- c
+    		c.conn.Close()
+    	}()
+    	for {
+    		_, message, err := c.conn.ReadMessage()
+    		if err != nil {
+    			c.hub.destroyConnection <- c
+    			c.conn.Close()
+    			break
+    		}
+    		c.hub.broadcast <- message
+    	}
+    }
 
 		// timeout between actions
 		time.Sleep(time.Second * 1)
