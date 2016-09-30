@@ -1,7 +1,8 @@
 <html>
 <head>
-<meta charset="UTF-8" />
-<style type="text/css">
+    <meta charset="UTF-8" />
+    <title>Jabber</title>
+    <style type="text/css">
 
         #content {
           width: 400px;
@@ -41,8 +42,8 @@
           outline: none;
         }
 
-</style>
-<script>
+    </style>
+    <script>
 
         var socket = new WebSocket("ws://localhost:8080/socket");
 
@@ -56,7 +57,7 @@
                 document.getElementById("server-message").innerHTML += "You: " + data + "<br>";
         }
 
-</script>
+    </script>
 </head>
 
 <body>

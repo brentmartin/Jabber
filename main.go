@@ -26,7 +26,6 @@ import (
 //          run read and write as goroutines
 //          update socket handler to send connections to hub to store
 // TODO:  Include HTML/JS for viewing
-//          write html for forms
 //          add in CSS for styling
 //          write JavaScript for interacting with backend
 // TODO:  Update main func for hub and connections
