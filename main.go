@@ -36,6 +36,15 @@ type Connection struct {
 //          run read and write as goroutines
 // TODO:  Update main func for hub and connections
 //          create new Hub
+func newHub() *Hub {
+	return &Hub{
+		broadcast:         make(chan []byte),
+		createConnection:  make(chan *Connection),
+		destroyConnection: make(chan *Connection),
+		connections:       make(map[*Connection]bool),
+	}
+}
+
 //          run the hub as a goroutine
 //          update socket handler to send connections to hub to store
 // TODO:  Include an upgrader to upgrade the http connection to a websocket
