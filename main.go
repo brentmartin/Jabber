@@ -54,7 +54,6 @@ type Connection struct {
 	send chan []byte
 }
 
-//          create new Connection
 //          build reader function for new Connections
 //          build writer function for new Connections
 //          run read and write as goroutines
@@ -94,6 +93,9 @@ func socketHandler(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 		return
 	}
+	//          create new Connection
+	connection := &Connection{hub: hub, conn: conn, send: make(chan []byte)}
+	hub.createConnection <- connection
 
 	for {
 		// read messages from server
