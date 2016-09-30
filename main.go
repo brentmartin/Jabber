@@ -54,7 +54,7 @@ type Connection struct {
 }
 
 // TODO:  Update main func for hub and connections
-//          create new Hub
+//          function for new hub
 func newHub() *Hub {
 	return &Hub{
 		broadcast:         make(chan []byte),
@@ -70,6 +70,8 @@ func newHub() *Hub {
 //          pass new connection to hub to be stored
 
 func main() {
+	//          create new Hub
+	hub := newHub()
 	// websocket handler
 	//          update socket handler to send connections to hub to store
 	http.HandleFunc("/socket", func(w http.ResponseWriter, r *http.Request) {
