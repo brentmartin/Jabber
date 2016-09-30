@@ -24,22 +24,22 @@ func (hub *Hub) launch() {
 	for {
 		select {
 		//      set function to receive connections from clients and store them
-		case conn := <-hub.createConnection:
-			hub.connections[conn] = true
+		case connection := <-hub.createConnection:
+			hub.connections[connection] = true
 		//      set function to receive disconnects and delete them
-		case conn := <-hub.destroyConnection:
-			if _, ok := hub.connections[conn]; ok {
-				delete(hub.connections, conn)
-				close(conn.send)
+		case connection := <-hub.destroyConnection:
+			if _, ok := hub.connections[connection]; ok {
+				delete(hub.connections, connection)
+				close(connection.send)
 			}
 		//      set function to receive messages from client and broadcast back to all client
 		case message := <-hub.broadcast:
-			for conn := range hub.connections {
+			for connection := range hub.connections {
 				select {
-				case conn.send <- message:
+				case connection.send <- message:
 				default:
-					close(conn.send)
-					delete(hub.connections, conn)
+					close(connection.send)
+					delete(hub.connections, connection)
 				}
 			}
 		}
