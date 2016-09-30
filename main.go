@@ -12,6 +12,13 @@ var upgrader = websocket.Upgrader{}
 
 // TODO:  Build Hub to store connections and broadcast messages to them
 //          initialize Hub object
+type Hub struct {
+	connections       map[*Connection]bool
+	broadcast         chan []byte
+	createConnection  chan *Connection
+	destroyConnection chan *Connection
+}
+
 //          build a function for Hub object to work in
 //          set function to receive connections from clients and store them
 //          set function to receive messages from client and broadcast back to all client
