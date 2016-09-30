@@ -49,7 +49,7 @@ func (hub *Hub) launch() {
 //          initialize Connection object
 type Connection struct {
 	hub  *Hub
-	ws   *websocket.Conn
+	conn *websocket.Conn
 	send chan []byte
 }
 
