@@ -33,6 +33,15 @@ func (hub *Hub) launch() {
 				close(conn.send)
 			}
 		//      set function to receive messages from client and broadcast back to all client
+		case message := <-hub.broadcast:
+			for conn := range hub.connections {
+				select {
+				case conn.send <- message:
+				default:
+					close(conn.send)
+					delete(hub.connections, conn)
+				}
+			}
 		}
 	}
 }
