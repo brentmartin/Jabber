@@ -85,6 +85,42 @@ func main() {
 	}
 }
 
+// write messages to server
+//          build writer function for new Connections
+func (c *Connection) writer() {
+	defer func() {
+		c.conn.Close()
+	}()
+	for {
+		select {
+		case message, ok := <-c.send:
+			if !ok {
+				c.conn.WriteMessage(websocket.CloseMessage, []byte{})
+				return
+			}
+			c.conn.WriteMessage(websocket.TextMessage, message)
+		}
+	}
+}
+
+// read messages from server
+//          build reader function for new Connections
+func (c *Connection) reader() {
+	defer func() {
+		c.hub.destroyConnection <- c
+		c.conn.Close()
+	}()
+	for {
+		_, message, err := c.conn.ReadMessage()
+		if err != nil {
+			c.hub.destroyConnection <- c
+			c.conn.Close()
+			break
+		}
+		c.hub.broadcast <- message
+	}
+}
+
 func socketChat(hub *Hub, w http.ResponseWriter, r *http.Request) {
 	// upgrade the connection
 	conn, err := upgrader.Upgrade(w, r, nil)
@@ -97,40 +133,5 @@ func socketChat(hub *Hub, w http.ResponseWriter, r *http.Request) {
 	hub.createConnection <- connection
 
 	for {
-		// read messages from server
-    //          build reader function for new Connections
-    func (c *Connection) reader() {
-    	defer func() {
-    		c.hub.destroyConnection <- c
-    		c.conn.Close()
-    	}()
-    	for {
-    		_, message, err := c.conn.ReadMessage()
-    		if err != nil {
-    			c.hub.destroyConnection <- c
-    			c.conn.Close()
-    			break
-    		}
-    		c.hub.broadcast <- message
-    	}
-    }
-
-		// write messages to server
-    //          build writer function for new Connections
-    func (c *Connection) writer() {
-    	defer func() {
-    		c.conn.Close()
-    	}()
-    	for {
-    		select {
-    		case message, ok := <-c.send:
-    			if !ok {
-    				c.conn.WriteMessage(websocket.CloseMessage, []byte{})
-    				return
-    			}
-    			c.conn.WriteMessage(websocket.TextMessage, message)
-    		}
-    	}
-    }
 	}
 }
