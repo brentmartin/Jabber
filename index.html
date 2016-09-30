@@ -53,7 +53,7 @@
         };
 
         function senddata() {
-                var data = name + ": " + document.getElementById("sendtext").value;
+                var data = document.getElementById("sendtext").value;
                 socket.send(data);
         }
 
