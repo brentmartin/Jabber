@@ -3,8 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
-	"time"
-
+  
 	"github.com/gorilla/websocket"
 )
 
@@ -115,9 +114,6 @@ func socketChat(hub *Hub, w http.ResponseWriter, r *http.Request) {
     		c.hub.broadcast <- message
     	}
     }
-
-		// timeout between actions
-		time.Sleep(time.Second * 1)
 
 		// write messages to server
     //          build writer function for new Connections
