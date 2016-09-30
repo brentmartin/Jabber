@@ -24,6 +24,8 @@ func (hub *Hub) launch() {
 	for {
 		select {
 		//      set function to receive connections from clients and store them
+		case conn := <-hub.createConnection:
+			hub.connections[conn] = true
 		//      set function to receive disconnects and delete them
 		//      set function to receive messages from client and broadcast back to all client
 		}
