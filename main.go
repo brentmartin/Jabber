@@ -8,26 +8,26 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-// TODO:  Include an upgrader to upgrade the http connection to a websocket
-//          create new connection object each time a connection is upgraded
-//          pass new connection to hub to be stored
+var upgrader = websocket.Upgrader{}
+
 // TODO:  Build Hub to store connections and broadcast messages to them
 //          initialize Hub object
-//          create new Hub
 //          build a function for Hub object to work in
 //          set function to receive connections from clients and store them
 //          set function to receive messages from client and broadcast back to all client
-//          run the hub as a goroutine
 // TODO:  Build Connection to store websocket connection and send/receive messages
 //          initialize Connection object
 //          create new Connection
 //          build reader function for new Connections
 //          build writer function for new Connections
 //          run read and write as goroutines
-//          update socket handler to send connections to hub to store
 // TODO:  Update main func for hub and connections
-
-var upgrader = websocket.Upgrader{}
+//          create new Hub
+//          run the hub as a goroutine
+//          update socket handler to send connections to hub to store
+// TODO:  Include an upgrader to upgrade the http connection to a websocket
+//          create new connection object each time a connection is upgraded
+//          pass new connection to hub to be stored
 
 func main() {
 	// websocket handler
