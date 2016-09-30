@@ -20,8 +20,16 @@ type Hub struct {
 }
 
 //          build a function for Hub object to work in
-//          set function to receive connections from clients and store them
-//          set function to receive messages from client and broadcast back to all client
+func (hub *Hub) launch() {
+	for {
+		select {
+		//      set function to receive connections from clients and store them
+		//      set function to receive disconnects and delete them
+		//      set function to receive messages from client and broadcast back to all client
+		}
+	}
+}
+
 // TODO:  Build Connection to store websocket connection and send/receive messages
 //          initialize Connection object
 type Connection struct {
