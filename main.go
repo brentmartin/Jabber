@@ -64,7 +64,6 @@ func newHub() *Hub {
 	}
 }
 
-//          run the hub as a goroutine
 // TODO:  Include an upgrader to upgrade the http connection to a websocket
 //          create new connection object each time a connection is upgraded
 //          pass new connection to hub to be stored
@@ -72,6 +71,8 @@ func newHub() *Hub {
 func main() {
 	//          create new Hub
 	hub := newHub()
+	//          run the hub as a goroutine
+	go hub.launch()
 	// websocket handler
 	//          update socket handler to send connections to hub to store
 	http.HandleFunc("/socket", func(w http.ResponseWriter, r *http.Request) {
