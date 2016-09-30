@@ -26,8 +26,6 @@ import (
 //          run read and write as goroutines
 //          update socket handler to send connections to hub to store
 // TODO:  Include HTML/JS for viewing
-//          add in CSS for styling
-//          write JavaScript for interacting with backend
 // TODO:  Update main func for hub and connections
 
 var upgrader = websocket.Upgrader{}

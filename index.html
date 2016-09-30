@@ -45,16 +45,15 @@
     </style>
     <script>
 
-        var socket = new WebSocket("ws://localhost:8080/socket");
+        var socket = new WebSocket("ws://localhost:8081/socket");
 
         socket.onmessage = function(e) {
-                document.getElementById("server-message").innerHTML += "Server: " + e.data + "<br>";
+                document.getElementById("server-message").innerHTML += e.data + "<br>";
         };
 
         function senddata() {
-                var data = document.getElementById("sendtext").value;
+                var data = name + ": " + document.getElementById("sendtext").value;
                 socket.send(data);
-                document.getElementById("server-message").innerHTML += "You: " + data + "<br>";
         }
 
     </script>
