@@ -69,14 +69,16 @@ func newHub() *Hub {
 }
 
 //          run the hub as a goroutine
-//          update socket handler to send connections to hub to store
 // TODO:  Include an upgrader to upgrade the http connection to a websocket
 //          create new connection object each time a connection is upgraded
 //          pass new connection to hub to be stored
 
 func main() {
 	// websocket handler
-	http.HandleFunc("/socket", socketHandler)
+	//          update socket handler to send connections to hub to store
+	http.HandleFunc("/socket", func(w http.ResponseWriter, r *http.Request) {
+		socketChat(hub, w, r)
+	})
 	// index file handler
 	http.Handle("/", http.FileServer(http.Dir(".")))
 	// start server
@@ -86,7 +88,7 @@ func main() {
 	}
 }
 
-func socketHandler(w http.ResponseWriter, r *http.Request) {
+func socketChat(hub *Hub, w http.ResponseWriter, r *http.Request) {
 	// upgrade the connection
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
