@@ -27,6 +27,11 @@ func (hub *Hub) launch() {
 		case conn := <-hub.createConnection:
 			hub.connections[conn] = true
 		//      set function to receive disconnects and delete them
+		case conn := <-hub.destroyConnection:
+			if _, ok := hub.connections[conn]; ok {
+				delete(hub.connections, conn)
+				close(conn.send)
+			}
 		//      set function to receive messages from client and broadcast back to all client
 		}
 	}
