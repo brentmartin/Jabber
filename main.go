@@ -24,6 +24,12 @@ type Hub struct {
 //          set function to receive messages from client and broadcast back to all client
 // TODO:  Build Connection to store websocket connection and send/receive messages
 //          initialize Connection object
+type Connection struct {
+	hub  *Hub
+	ws   *websocket.Conn
+	send chan []byte
+}
+
 //          create new Connection
 //          build reader function for new Connections
 //          build writer function for new Connections
