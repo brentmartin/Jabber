@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
-  
+
 	"github.com/gorilla/websocket"
 )
 
@@ -53,7 +53,6 @@ type Connection struct {
 	send chan []byte
 }
 
-//          run read and write as goroutines
 // TODO:  Update main func for hub and connections
 //          create new Hub
 func newHub() *Hub {
@@ -132,6 +131,7 @@ func socketChat(hub *Hub, w http.ResponseWriter, r *http.Request) {
 	connection := &Connection{hub: hub, conn: conn, send: make(chan []byte)}
 	hub.createConnection <- connection
 
-	for {
-	}
+	//          run read and write as goroutines
+	go connection.reader()
+	go connection.writer()
 }
