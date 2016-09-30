@@ -54,7 +54,6 @@ type Connection struct {
 	send chan []byte
 }
 
-//          build writer function for new Connections
 //          run read and write as goroutines
 // TODO:  Update main func for hub and connections
 //          create new Hub
@@ -121,9 +120,21 @@ func socketChat(hub *Hub, w http.ResponseWriter, r *http.Request) {
 		time.Sleep(time.Second * 1)
 
 		// write messages to server
-		err = conn.WriteMessage(message, p)
-		if err != nil {
-			return
-		}
+    //          build writer function for new Connections
+    func (c *Connection) writer() {
+    	defer func() {
+    		c.conn.Close()
+    	}()
+    	for {
+    		select {
+    		case message, ok := <-c.send:
+    			if !ok {
+    				c.conn.WriteMessage(websocket.CloseMessage, []byte{})
+    				return
+    			}
+    			c.conn.WriteMessage(websocket.TextMessage, message)
+    		}
+    	}
+    }
 	}
 }
