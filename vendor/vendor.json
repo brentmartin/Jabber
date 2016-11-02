@@ -9,5 +9,9 @@
 			"revisionTime": "2016-08-02T13:32:03Z"
 		}
 	],
-	"rootPath": "github.com/brentmartin/Jabber"
+	"rootPath": "github.com/brentmartin/Jabber",
+	"heroku": {
+		"install" : [ "./..." ],
+		"goVersion": "go1.7"
+		 },
 }
