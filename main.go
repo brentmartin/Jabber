@@ -34,7 +34,7 @@ func main() {
 	})
 
 	// index file handler
-	http.Handle("/", http.FileServer(http.Dir(".")))
+	http.Handle("/", http.FileServer(http.Dir("./public")))
 
 	// start server
 	err := http.ListenAndServe(":8080", nil)
