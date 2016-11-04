@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/gorilla/websocket"
 )
@@ -34,10 +35,10 @@ func main() {
 	})
 
 	// index file handler
-	http.Handle("/", http.FileServer(http.Dir(".")))
+	http.Handle("/", http.FileServer(http.Dir("./public")))
 
 	// start server
-	err := http.ListenAndServe(":8080", nil)
+	err := http.ListenAndServe(":"+os.Getenv("PORT"), nil)
 	if err != nil {
 		panic("Error: " + err.Error())
 	}
