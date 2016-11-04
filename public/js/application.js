@@ -1,4 +1,4 @@
-var socket = new WebSocket("ws://localhost:8080/socket");
+var socket = new WebSocket(location.protocol.replace("http","ws") + "//" + location.host + "/socket");
 
 socket.onmessage = function(e) {
         document.getElementById("server-message").innerHTML += e.data + "<br>";
